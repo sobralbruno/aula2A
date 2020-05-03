@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Previsões do tempo</title>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+        <link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="panel panel-default" style="margin: 10px">
+            <div class="panel-heading">
+                <h1 class="panel-title">Previsões</h1>
+            </div>
+            <form
+                class="form-inline"
+                method="post"
+                th:object="${previsao}"
+                th:action="@{/previsoes}"
+                style="margin: 20px"
+            >
+                <div class="col-xs-12" style="margin-bottom: 20px;">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Dia da Semana" th:field="*{diaSemana}"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Temp. Min." th:field="*{tempMin}" pattern="[0-9]*\.?[0-9]*" title="Insira apenas números e divididos por ponto (.)"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Temp. Max." th:field="*{tempMax}" pattern="[0-9]*\.?[0-9]*" title="Insira apenas números e divididos por ponto (.)"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="margin-bottom: 20px;">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Umidade" th:field="*{umidade}"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Descrição" th:field="*{descricao}"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Latitude" th:field="*{latitude}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="margin-bottom: 20px;">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="longitude" th:field="*{longitude}"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="data/hora" th:field="*{hora}"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Dia da Semana</th>
+                            <th>Temp. Min.</th>
+                            <th>Temp. Max.</th>
+                            <th>Umidade</th>
+                            <th>Descrição</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>data/hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="previsao:${previsoes}">
+                            <td th:text="${previsao.diaSemana}"></td>
+                            <td th:text="${previsao.tempMin + '°C'}"></td>
+                            <td th:text="${previsao.tempMax + '°C'}"></td>
+                            <td th:text="${previsao.umidade + '%'}"></td>
+                            <td th:text="${previsao.descricao}"></td>
+                            <td th:text="${previsao.latitude}"></td>
+                            <td th:text="${previsao.longitude}"></td>
+                            <td th:text="${previsao.hora}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
